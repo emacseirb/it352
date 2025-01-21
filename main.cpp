@@ -5,42 +5,27 @@
 
 #include "mbed.h"
 
+InterruptIn button(BUTTON1);
+DigitalOut led(LED1);
 
 // Blinking rate in milliseconds
 #define BLINKING_RATE     500ms
 
+void flip(){
+    led = 1;
+}
+
+void flip_2(){
+    led = 0;
+}
 
 int main()
 {
-    // Initialise the digital pin LED1 as an output
-#ifdef LED1
-    DigitalOut led(LED1);
-#else
-    bool led;
-#endif
-
-#ifdef BUTTON1
-    DigitalIn  button(BUTTON1);
-#else
-    bool button;
-#endif
-
-
-
-    while (true) {
-        //led = !led;
-        //ThisThread::sleep_for(BLINKING_RATE);
-
-        if (button == true){
-            led = true;
-            printf("Bouton appuye !\n");
-            ThisThread::sleep_for(BLINKING_RATE);
-        }
-        else {
-            led = false;
-            printf("Bouton relache !\n");
-            ThisThread::sleep_for(BLINKING_RATE);
-        }
-
-    }
+    printf("start succesfully !!\n");
+    button.rise(&flip);
+    button.fall(&flip_2);
+    /*while(1){
+        printf("nothing here for the moment \n");
+        ThisThread::sleep_for(250);
+    }*/
 }
