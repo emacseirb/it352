@@ -19,9 +19,28 @@ int main()
     bool led;
 #endif
 
+#ifdef BUTTON1
+    DigitalIn  button(BUTTON1);
+#else
+    bool button;
+#endif
+
+
+
     while (true) {
-        led = !led;
-        ThisThread::sleep_for(BLINKING_RATE);
+        //led = !led;
+        //ThisThread::sleep_for(BLINKING_RATE);
+
+        if (button == true){
+            led = true;
+            printf("Bouton appuye !\n");
+            ThisThread::sleep_for(BLINKING_RATE);
+        }
+        else {
+            led = false;
+            printf("Bouton relache !\n");
+            ThisThread::sleep_for(BLINKING_RATE);
+        }
 
     }
 }
